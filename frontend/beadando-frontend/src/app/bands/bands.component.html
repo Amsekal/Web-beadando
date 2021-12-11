@@ -1,0 +1,83 @@
+<div class="container">
+
+    <h1>Bands</h1>
+
+  
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Band name</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let band of bands">
+            <td>{{band?.id}}</td>
+            <td>{{band?.name}}</td>
+            <td>{{band?.genre}}</td>
+
+            <td>
+                <mat-icon id="modify" (click)="updateBand(band)">note</mat-icon>
+                <mat-icon id="delete" (click)="deleteBand(band.id)">delete</mat-icon>
+            </td>
+        </tr>
+    </table>
+
+    <button mat-mini-fab [disabled]="showForm ? 'disabled': null" color="primary" id="add" (click)="addNew()">
+        <mat-icon>playlist_add</mat-icon>
+    </button>
+
+    <ng-container *ngIf="showForm">
+        <p class="showID" *ngIf="update">ID: {{currentBand.id}}</p>
+
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Band name</mat-label>
+            <mat-select [(value)]="newband.name">
+                <mat-option *ngFor="let name of name" [value]="name">{{name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Genre</mat-label>
+            <mat-select [(value)]="newband.genre">
+                <mat-option *ngFor="let gen of genre" [value]="gen">{{gen}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+
+
+
+        <button mat-mini-fab color="green" id="add" (click)="saveOrUpdate()">
+            <mat-icon>send</mat-icon>
+        </button>
+
+
+
+
+    </ng-container>
+
+
+    <div class="find">
+        <p style="font-size: large;">Find by ID</p>
+        <mat-form-field appearance="fill" id="searchOne">
+            <mat-label>Id Number</mat-label>
+            <input placeholder="Id number" matInput type="number" [(ngModel)]="searchedID">
+        </mat-form-field>
+        <button mat-mini-fab color="green" (click)="searchOne()" [disabled]="!searchedID ? 'disabled': null">
+            <mat-icon>forward</mat-icon>
+        </button>
+        <p style="font-size: xx-large; color: crimson; margin-top: 20px;" *ngIf="showNotFoundMessage">ID does not
+            exist!</p>
+    </div>
+
+    <button style="margin: 20px 20px 0 20px;" mat-stroked-button (click)="getBands()">Show all</button>
+
+    <p class="about">CZKX7F</p>
+
+</div>
